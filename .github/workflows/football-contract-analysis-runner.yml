@@ -1,0 +1,29 @@
+name: temporary-football-contract-analysis-runner
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - football_contract_analysis/run.py
+permissions:
+  contents: read
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install pandas numpy scipy requests rapidfuzz linearmodels tabulate
+      - name: Run analysis
+        run: python football_contract_analysis/run.py | tee football_contract_analysis/output/run.log
+      - name: Upload auditable outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-contract-analysis-results
+          path: football_contract_analysis/output
+          if-no-files-found: error
+          retention-days: 30
