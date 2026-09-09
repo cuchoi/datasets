@@ -1,5 +1,10 @@
 name: football-contract-analysis
 on:
+  pull_request:
+    branches: [master]
+    paths:
+      - football_contract_analysis/run.py
+      - .github/workflows/football-contract-analysis.yml
   push:
     branches: [analysis/football-contract-year-20260909]
     paths:
