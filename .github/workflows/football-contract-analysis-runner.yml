@@ -4,6 +4,7 @@ on:
     branches: [master]
     paths:
       - football_contract_analysis/run.py
+      - football_contract_analysis/trigger.txt
 permissions:
   contents: read
 jobs:
