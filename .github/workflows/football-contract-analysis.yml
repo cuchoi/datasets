@@ -6,6 +6,7 @@ on:
       - football_contract_analysis/run.py
       - football_contract_analysis/run_v2.py
       - football_contract_analysis/run_v3.py
+      - football_contract_analysis/run_v4.py
       - .github/workflows/football-contract-analysis.yml
   push:
     branches: [analysis/football-contract-year-20260909]
@@ -13,6 +14,7 @@ on:
       - football_contract_analysis/run.py
       - football_contract_analysis/run_v2.py
       - football_contract_analysis/run_v3.py
+      - football_contract_analysis/run_v4.py
       - .github/workflows/football-contract-analysis.yml
   workflow_dispatch:
 permissions:
@@ -31,12 +33,12 @@ jobs:
       - name: Run analysis
         run: |
           mkdir -p football_contract_analysis/output
-          python football_contract_analysis/run_v3.py | tee football_contract_analysis/output/run.log
+          python football_contract_analysis/run_v4.py | tee football_contract_analysis/output/run.log
       - name: Upload auditable outputs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: football-contract-analysis-results-v3
+          name: football-contract-analysis-results-v4
           path: football_contract_analysis/output
           if-no-files-found: error
           retention-days: 30
